@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "Specialty Page";
+    BreadcrumbModel breadcrumb = ViewData["breadcrumb"] as BreadcrumbModel;
+}
+
+@model List<ChuyenKhoa>
+
+<div class="specialty">
+    <partial name="_Breadcrumb" model="breadcrumb" />
+    <div class="specialty__main">
+        <h2 class="specialty__main-title">Chuyên khoa cho bạn</h2>
+        <ul class="specialty__main-list">
+            @foreach (ChuyenKhoa ck in Model)
+            {
+                <li class="specialty__main-item">
+                    <a class="specialty__main-item-wrapper" asp-controller="Specialty" asp-action="Detail"
+                        asp-route-id="@ck.SMaChuyenKhoa">
+                        <div class="specialty__main-item-avatar">
+                            <img src="images/@ck.Sthumbnail" alt="THUMBNAIL_SPECIALTY">
+                        </div>
+                        <div class="specialty__main-item-info">
+                            <p>@ck.STenChuyenKhoa</p>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

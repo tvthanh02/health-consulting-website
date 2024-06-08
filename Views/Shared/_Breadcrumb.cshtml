@@ -1,0 +1,32 @@
+
+@model BreadcrumbModel
+
+
+
+@{
+        List<string> crumbs;
+
+        if(Model.Path.Contains("/")) {
+                crumbs = Model.Path.Split("/").ToList<string>();
+        }else {
+                crumbs = new List<string>() { Model.Path };
+        }
+}
+
+
+<div class="breadcrumb">
+        <ul class="crumbs">
+                <li class="crumb__item">
+                        <i class="fa-solid fa-house"></i>
+                </li>
+                <li class="seperate"><i class="fa-solid fa-chevron-right"></i></li>
+                @for(int i = 0; i< crumbs.Count; i++) {
+                        <li class="crumb__item">@crumbs[i]</li>
+                        @if(crumbs[i] != crumbs[crumbs.Count - 1]) {
+                                <li class="seperate"><i class="fa-solid fa-chevron-right"></i></li>
+                        }
+                }
+        </ul>
+</div>
+
+

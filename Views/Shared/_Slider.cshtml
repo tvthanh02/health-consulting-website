@@ -1,0 +1,21 @@
+@using health_consulting_website.Models
+
+@model List<SliderItem>
+
+<div class="slider">
+  <button id="left" class="btn-action">
+    <i class="fa-solid fa-angle-left"></i>
+  </button>
+  <ul class="slides">
+    @foreach (SliderItem obj in Model)
+    {
+      <a class="slide-item" asp-controller="@obj.ControllerName" asp-action="@obj.ActionName"
+        asp-route-id='@obj.RouteParameter'>
+        @Html.Raw(obj.Data)
+      </a>
+    }
+  </ul>
+  <button id="right" class="btn-action">
+    <i class="fa-solid fa-angle-right"></i>
+  </button>
+</div>

@@ -1,0 +1,282 @@
+.home {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+
+  & .home__hero {
+    width: 100%;
+    height: 403px;
+    @include mobile {
+      height: 145px;
+    }
+    display: grid;
+    @include desktop {
+      grid-template-columns: 3fr 1fr;
+    }
+
+    grid-template-columns: 1fr;
+    column-gap: 20px;
+
+    & .home__hero-banner {
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      border-radius: 10px;
+      overflow: hidden;
+
+      & .slider .banner {
+        width: 100%;
+        height: 100%;
+
+        & img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    & .home__hero-clickbat {
+      @include desktop {
+        display: block;
+      }
+      display: none;
+      position: relative;
+      flex-shrink: 0;
+      flex-grow: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+
+      &::after {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(119, 185, 252, 0.3);
+      }
+      &::before {
+        position: absolute;
+        content: "Nhận Tư Vấn";
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 200px;
+        height: 45px;
+        background-color: $primary;
+        color: white;
+        font-size: 1.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        box-shadow: 0px 0px 6px $primary;
+        cursor: pointer;
+      }
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  & .home__specialty {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    & .home__specialty-head {
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & .home__specialty-title {
+        font-size: 2.4rem;
+
+        @include mobile {
+          font-size: 1.6rem;
+        }
+        color: $primary;
+        font-weight: 600;
+      }
+    }
+
+    & .home__specialty-content {
+      width: 100%;
+      height: 300px;
+      @include mobile {
+        height: 138px;
+      }
+
+      & .specialty-card {
+        width: 100%;
+        height: 300px;
+        @include mobile {
+          height: 138px;
+        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        cursor: pointer;
+
+        & .specialty-card__thumbnail {
+          width: 80%;
+          height: 80%;
+          overflow: hidden;
+          box-shadow: 0px 0px 6px rgba(28, 95, 163, 0.3);
+
+          & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        & .specialty-card__name {
+          flex: 1;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 1.5rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  & .home__doctor-staring {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    & .home__doctor-head {
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & .home__doctor-title {
+        font-size: 2.4rem;
+        @include mobile {
+          font-size: 1.6rem;
+        }
+        color: $primary;
+        font-weight: 600;
+      }
+    }
+
+    & .home__doctor-content {
+      width: 100%;
+      height: 300px;
+
+      @include mobile {
+        height: 210px;
+      }
+
+      & .doctor-card {
+        width: 100%;
+        height: 300px;
+        @include mobile {
+          height: 210px;
+        }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        gap: 10px;
+        cursor: pointer;
+        //margin: 0 auto;
+        & .doctor-card__avatar {
+          width: 185px;
+          height: 185px;
+          @include mobile {
+            width: 105px;
+            height: 105px;
+          }
+          border-radius: 50%;
+          border: 1px solid $primary;
+          overflow: hidden;
+
+          & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        & .doctor-card__name {
+          font-size: 1.5rem;
+          font-weight: 600;
+          text-align: center;
+        }
+
+        & .doctor-card__specialty {
+          font-size: 1.3rem;
+          color: $primary;
+        }
+      }
+    }
+  }
+  & .btnMoreContent {
+    @include tablet {
+      width: 120px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4rem;
+      color: white;
+      // border: 1px solid #333;
+      background-color: $second;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        filter: brightness(120%);
+      }
+    }
+
+    @include desktop {
+      width: 120px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4rem;
+      color: white;
+      // border: 1px solid #333;
+      background-color: $second;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        filter: brightness(120%);
+      }
+    }
+
+    @include mobile {
+      font-size: 1.6rem;
+      color: $second;
+      text-decoration: none;
+    }
+  }
+}

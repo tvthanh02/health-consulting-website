@@ -1,0 +1,87 @@
+@{
+    ViewData["Title"] = "Schedule Detail Page";
+}
+
+@model TuVanBangThoiGian
+
+<div class="schedule-detail__container">
+    <section class="schedule-detail__box">
+        <div class="schedule-detail__box-content">
+            <p class="schedule-detail__box-title">Ghi chú của bác sĩ:</p>
+            <div class="shcdule-detail__box-content">
+                @(Model.SGhiChuBacSi != null && Model.SGhiChuBacSi.Length > 0 ? Model.SGhiChuBacSi : "Bác sĩ chưa để lại ghi chú/lời nhắn.")
+            </div>
+        </div>
+    </section>
+    <section class="schedule-detail__box">
+        <div class="schedule-detail__box-content">
+            <p class="schedule-detail__box-title">Ghi chú của bạn:</p>
+            <div class="schedule-detail__box-content">
+                <div class="schedule-detail__box-content-textarea">
+                    <textarea class="textarea"></textarea>
+                </div>
+            </div>
+        </div>
+       @if(Model.SMaTrangThai == "tt1") {
+            <div class="schedule-detail__box-content">
+            <p class="schedule-detail__box-title">Đánh giá:</p>
+            <div class="schedule-detail__box-content">
+                <select class="select-feedback">
+                    <option value="">lựa chọn</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+       }
+        <div class="btn btn-sendFeedback" data-scheduleid=@Model.SMaLich data-timeid=@Model.SMaThoiGianTuVan>Gửi</div>
+    </section>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            const btn = jQuery(".btn-sendFeedback")
+            if(btn) {
+                btn.on("click", function() {
+                     const userNoteValue = jQuery(".textarea")
+                    const userFeedback = jQuery(".select-feedback")
+                      
+                    if(userNoteValue.val().trim() !== "") {
+                        const scheduleid = jQuery(this).data("scheduleid");
+                        const timeid = jQuery(this).data("timeid");
+                            jQuery.ajax({
+                                url: "/cap-nhat-lich",
+                                type: "POST",
+                                dataType: "json",
+                                data: {
+                                    scheduleid: scheduleid,
+                                    timeid: timeid,
+                                    userNote: userNoteValue.val().trim(),
+                                    feedback: userFeedback.val() !== null ? userFeedback.val() : 0
+                                },
+                                success: function(response) {
+                                    if(response?.error === "0") {
+                                        userNoteValue.val("")
+                                        userFeedback.val("")
+                                        location.href = "/lich-hen"
+                                    }
+                                },
+                                error: function() {
+                                    console.log("err")
+                                }
+                            })
+                
+                    }else {
+                        alert("Không thể gửi, chưa nhập dữ liệu!")
+                    } 
+                        
+                })
+
+            }
+        })
+    </script>
+}

@@ -1,0 +1,29 @@
+.specialty-detail__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  padding: 50px 0;
+
+  & .specialty-detail__heading {
+    font-size: 2.3rem;
+    font-weight: bold;
+    color: $second;
+  }
+
+  & .specialty-detail__part {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    & .specialty-detail-part__title {
+      font-size: 1.6rem;
+      color: $primary;
+      font-weight: bold;
+    }
+    & .specialty-detail-part__list {
+      list-style: circle;
+      font-size: 1.3rem;
+    }
+  }
+}

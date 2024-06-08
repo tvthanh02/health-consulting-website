@@ -1,0 +1,156 @@
+.schedule__main {
+  margin: 30px 0 60px 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+
+  & .schedule__main-title {
+    font-size: 2rem;
+    color: #333;
+  }
+
+  & .schedule__main-features {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+
+    & .schedule-feature__filter {
+      width: auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      & p {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: $primary;
+      }
+
+      & form,
+      & select {
+        flex: 1;
+        height: 100%;
+      }
+
+      & select {
+        border: 2px solid $primary;
+        color: $primary;
+        outline: none;
+        padding: 5px 8px;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 1.3rem;
+      }
+    }
+  }
+  & .schedule__main-list {
+    width: 100%;
+    height: auto;
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(5, 1fr);
+
+    @include tablet {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+    list-style: none;
+
+    & .schedule__main-item {
+      position: relative;
+      width: 100%;
+      height: 230px;
+      padding: 15px 10px;
+      box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.17);
+
+      @include mobile {
+        box-shadow: none;
+      }
+      font-size: 1.4rem;
+      background-color: #f7f7f7;
+
+      &.done .schedule__main-top-status {
+        background-color: $primary;
+      }
+      &.pending .schedule__main-top-status {
+        background-color: orange;
+      }
+      &.error .schedule__main-top-status {
+        background-color: $second;
+      }
+      &.pending .icon-time {
+        color: orange;
+      }
+      &.doing .icon-time {
+        color: green;
+      }
+      &.error .icon-time {
+        color: $second;
+      }
+      &.done .icon-time {
+        color: $primary;
+      }
+
+      & .schedule__main-item-wrapper {
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        & .schedule__main-item-top {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          & .schedule__main-top-status {
+            width: 10px;
+            height: 10px;
+            //background-color: $primary;
+            border-radius: 50%;
+          }
+
+          & .schedule__main-top-description {
+            font-weight: 600;
+          }
+        }
+        & .schedule__main-item-content {
+          width: 100%;
+          flex: 1;
+          padding: 15px 5px;
+          background-color: white;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 10px;
+
+          & .schedule__main-content-name-service {
+            font-weight: 600;
+          }
+
+          & .schedule__main-content-doctor {
+            color: $primary;
+            font-weight: 600;
+          }
+          & .schedule__main-content-dateandtime {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+  }
+}

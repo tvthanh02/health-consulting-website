@@ -1,0 +1,176 @@
+@model ServiceDetail
+
+@{
+    ViewData["Title"] = "Detail Service Page";
+    BreadcrumbModel breadcrumb = ViewData["breadcrumb"] as BreadcrumbModel;
+    string ServiceDetailId = ViewBag.BreadcrumbParams;
+    if (ServiceDetailId != null)
+    {
+        breadcrumb.Path = $"{breadcrumb.Path}/{ServiceDetailId}";
+    }
+
+    if (Model.Time == null)
+    {
+        DateTime currentDateTime = DateTime.Now.Date;
+
+        Model.Time = new DateOnly(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day);
+    }
+    string formattedDate = Model.Time.ToString();
+    ViewBag.currentDateTime = formattedDate;
+}
+
+
+
+<div class="service-detail">
+    <partial name="_Breadcrumb" model="breadcrumb" />
+    <div class="service-detail__content">
+        <div class="service-detail__content-introduce">
+            <h2 class="service-detail-introduce__title">Tư vấn về @Model.Specialty.STenChuyenKhoa.Replace("Chuyên khoa",
+                "") từ xa tại HeathConsult</h2>
+            <div class="service-detail-introduce__part">
+                <p class="service-detail-introduce__part-title">Chuyên gia tư vấn giỏi </p>
+                <ul class="service-detail-introduce__part-infos">
+                    <li class="service-detail-introduce__part-infos-item"><strong>HeathConsult</strong> là Nền tảng Y tế
+                        chăm sóc Sức
+                        khỏe toàn diện, trong đó có cung cấp dịch vụ tư vấn từ xa</li>
+                    <li class="service-detail-introduce__part-infos-item">Chuyên gia được đào tạo bài bản về chuyên
+                        ngành Tâm lý tại các trường đại học trong nước và quốc tế.</li>
+                    <li class="service-detail-introduce__part-infos-item">Đội ngũ tư vấn là những người có nhiều kinh
+                        nghiệm trong lĩnh vực, chăm sóc sức khỏe.</li>
+                    <li class="service-detail-introduce__part-infos-item">Các nhà chuyên môn nghiên cứu, tư vấn và trị
+                        liệu theo các phương pháp tiếp cận mới, hiệu quả</li>
+                    <li class="service-detail-introduce__part-infos-item">Lắng nghe và thấu hiểu khách hàng để giúp họ
+                        vượt qua khó khăn của bản thân.</li>
+                </ul>
+            </div>
+            <div class="service-detail-introduce__part">
+                <p class="service-detail-introduce__part-title">Tư vấn và trị liệu </p>
+                <ul class="service-detail-introduce__part-infos">
+                    <li class="service-detail-introduce__part-infos-item">Khó khăn, rối nhiễu tâm lý</li>
+                    <li class="service-detail-introduce__part-infos-item">Phát triển cá nhân</li>
+                    <li class="service-detail-introduce__part-infos-item">Mâu thuẫn, lạm dụng và tổn thương tâm lý</li>
+                    <li class="service-detail-introduce__part-infos-item">Tái hòa nhập xã hội</li>
+                    <li class="service-detail-introduce__part-infos-item">Vấn đề khuyết tật và nhóm yếu thế</li>
+                    <li class="service-detail-introduce__part-infos-item">Những vấn đề của vị thành niên</li>
+                    <li class="service-detail-introduce__part-infos-item">Giới tính và tình dục</li>
+                    <li class="service-detail-introduce__part-infos-item">Những vấn đề trong mối quan hệ gia đình</li>
+                </ul>
+            </div>
+        </div>
+        <p class="service-detail__content-introduce-action">Hiện thêm</p>
+        <div class="service-detail__content-main">
+            <ul class="service-detail__list-option">
+                @foreach (BacSi bs in Model.Specialty.BacSis)
+                {
+                    <article class="service-detail__option">
+                        <div class="service-detail__option-doctor-info">
+                            <div class="doctor-info__avatar">
+                                <img src="/images/@bs.SAvatar" alt="AVATAR_DOCTOR">
+                            </div>
+                            <div class="doctor-info__content">
+                                BS. @bs.STenBacSi
+                            </div>
+                        </div>
+                        <div class="service-detail__option-schedule">
+                            <div class="book-schedule">
+                                <div class="book-schedule__date" data-doctorID='@bs.SMaBacSi'>Hôm nay -
+                                    @ViewBag.currentDateTime
+                                    @* <input type="datetime-local" id="birthdaytime"
+                                data-specid="@Model.Specialty.SMaChuyenKhoa"> *@
+                                </div>
+                                <p class="book-schedule__title">Lịch tư vấn</p>
+                                <div class="book-schedule__options">
+                                    @if (bs.TuVans.Count > 0)
+                                    {
+                                        int j = 0;
+                                        @foreach (TuVan tv in bs.TuVans)
+                                        {
+                                            if (tv.DNgayTuVan == Model.Time)
+                                            {
+                                                j++;
+                                                int i = 0;
+                                                @foreach (TuVanBangThoiGian time in tv.TuVanBangThoiGians)
+                                                {
+
+                                                    if (time.SMaNguoiDung == null)
+                                                    {
+                                                        i++;
+                                                        TimeOnly? startTimeFromDB = time.SMaThoiGianTuVanNavigation.TThoiGianBatDau;
+                                                        TimeOnly? endTimeFromDB = time.SMaThoiGianTuVanNavigation.TThoiGianKetThuc;
+                                                        string formattedStartTime = string.Format("{0:HH:mm}", startTimeFromDB);
+                                                        string formattedEndTime = string.Format("{0:HH:mm}", endTimeFromDB);
+                                                        <a asp-controller="Service" asp-action="Payment" asp-route-id="@time.SMaThoiGianTuVan"
+                                                            asp-route-scheduleid="@tv.SMaLich" class="book-schedule__option"
+                                                            class="book-schedule__option">
+                                                            @formattedStartTime - @formattedEndTime
+                                                        </a>
+                                                    }
+                                                }
+                                                if (i == 0)
+                                                {
+                                                    <p class="alert-invalid-schedule">Bác sĩ đã kín lịch cho hôm nay!</p>
+                                                }
+                                            }
+                                        }
+                                        if (j == 0)
+                                        {
+                                            <p class="alert-invalid-schedule">Bác sĩ chưa có lịch làm việc!</p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p class="alert-invalid-schedule">Bác sĩ chưa có lịch làm việc!</p>
+                                    }
+
+                                </div>
+                            </div>
+                            <p class="book-schedule-price">Giá tư vấn: @{
+                                    double? price = bs.FPriceConsult;
+
+                                    // Sử dụng phương thức ToString với định dạng tiền tệ việt nam
+                                    string formattedPrice = price?.ToString("#,##0 đ");
+
+                                } <strong>@formattedPrice</strong></p>
+                        </div>
+                    </article>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('#birthdaytime').change(function () {
+                // Lấy giá trị từ thẻ input
+                var selectedDateTime = jQuery(this).val();
+                const specialty = jQuery(this).data("specid")
+                console.log(specialty)
+
+                // Gửi dữ liệu qua Ajax
+                $.ajax({
+                    url: '/chon-thoi-gian', // Thay đổi thành URL của bạn
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        birthdaytime: selectedDateTime,
+                        specialtyid: specialty
+                    },
+                    success: function (response) {
+                        if (response?.url) {
+                            location.href = response.url
+                        }
+                        // Xử lý phản hồi nếu cần
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Đã xảy ra lỗi: ', error);
+                    }
+                });
+            });
+        });
+
+
+
+    </script>
+}

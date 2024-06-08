@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+@model TaiKhoan
+
+<div class="row align-items-center justify-content-center">
+    <div class="col-md-12">
+        <div class="form-block mx-auto">
+            <div class="text-center mb-5">
+                <h3 class="text-uppercase">Đăng nhập</h3>
+            </div>
+            <form class="auth-form" asp-controller="Auth" asp-action="Login" method="post">
+                <div class="form-group first">
+                    <label for="username">Tài khoản</label>
+                    <input asp-for="@Model.STenDangNhap" type="text" class="form-control" placeholder="Nhập tài khoản"
+                        id="username">
+                    <span asp-validation-for="@Model.STenDangNhap" class="alert-err-validate text-danger"></span>
+                </div>
+                <div class="form-group last mb-3">
+                    <label for="password">Mật khẩu</label>
+                    <input asp-for="@Model.SMatKhau" type="password" class="form-control" placeholder="Nhập mật khẩu"
+                        id="password">
+                    <span asp-validation-for="@Model.SMatKhau" class="alert-err-validate text-danger"></span>
+                </div>
+
+                @* <div class="d-sm-flex mb-5 align-items-center">
+                <label class="control control--checkbox mb-3 mb-sm-0"><span class="caption">Remember me</span>
+                <input type="checkbox" checked="checked" />
+                <div class="control__indicator"></div>
+                </label>
+                <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
+                </div> *@
+
+                <input type="submit" value="Đăng Nhập" class="btn btn-block btn-submit py-2 btn-primary">
+            </form>
+        </div>
+    </div>
+</div>

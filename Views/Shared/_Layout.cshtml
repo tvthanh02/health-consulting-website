@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Health Consulting Website</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/font/fontawesome-free-6.5.1-web/fontawesome-free-6.5.1-web/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__wrapper">
+                <div class="logo">
+                    <a asp-controller="Home" asp-action="Index">
+                        <img src="~/images/logo.png" alt="LOGO">
+                    </a>
+                </div>
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a class="nav__item-link" asp-controller="Service" asp-action="Index">Tư vấn sức khỏe</a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__item-link" href="/bac-si">Bác sĩ</a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__item-link" asp-controller="Specialty" asp-action="Index">Chuyên khoa</a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__item-link" asp-controller="Schedule" asp-action="Index">Lịch hẹn</a>
+                        </li>
+                    </ul>
+                    <div class="authen">
+                        <div class="authen__feature">
+                            <div class="authen__feature-option">
+                                <a asp-controller="Auth" asp-action="Register">Đăng ký</a>
+                            </div>
+                            <span class="separent"> | </span>
+                            <div class="authen__feature-option">
+                                <a asp-controller="Auth" asp-action="Login">Đăng nhập</a>
+                            </div>
+                        </div>
+                        @* @{
+                        if (userCurentName != null)
+                        {
+                        <div class="authen__user">
+                        <p class="authen__username">@userCurentName</p>
+                        <div class="authen__logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        </div>
+                        </div>
+                        }
+                        else
+                        {
+                        <div class="authen__feature">
+                        <div class="authen__feature-option">
+                        <a asp-controller="Auth" asp-action="Register">Đăng ký</a>
+                        </div>
+                        <span class="separent"> | </span>
+                        <div class="authen__feature-option">
+                        <a asp-controller="Auth" asp-action="Login">Đăng nhập</a>
+                        </div>
+                        </div>
+                        }
+
+                        } *@
+                    </div>
+                </nav>
+                <div class="header__bar">
+                    <div class="icon">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <main style="margin: 30px 0;" role="main" class="pt-3 pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__wrapper">
+                <div class="footer__top">
+                    <div class="col">
+                        <p class="col__title">Công Ty Cổ Phần Công Nghệ G13</p>
+                        <ul class="col__items">
+                            <li class="col__item">
+                                <span><i class="fa-solid fa-location-dot"></i></span>
+                                <p>Số 96 Phố Định Công, Quận Hoàng Mai, TP. Hà Nội</p>
+                            </li>
+                            @* <li class="col__item">
+                            <i class="fa-solid fa-certificate"></i>
+                            ĐKKD số. 0106790291. Sở KHĐT Hà Nội cấp ngày 16/03/2015
+                            </li> *@
+                            <li class="col__item">
+                                <i class="fa-solid fa-phone"></i>
+                                024-7301-2468
+                            </li>
+                            <li class="col__item">
+                                <i class="fa-solid fa-envelope"></i>
+                                support@g13.vn
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <p class="col__title">Heath Consult</p>
+                        <ul class="col__items">
+                            <li class="col__item">
+                                <a asp-controller="">Tư vấn sức khỏe</a>
+                            </li>
+                            <li class="col__item">
+                                <a asp-controller="">Bác sĩ</a>
+                            </li>
+                            <li class="col__item">
+                                <a asp-controller="">Chuyên khoa</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <p class="col__title">Mạng Xã Hội</p>
+                        <ul class="col__items">
+                            <li class="col__item">
+                                <a href="">Facebook.com/g13</a>
+                            </li>
+                            <li class="col__item">
+                                <a href="">Instagram.com/g13</a>
+                            </li>
+                            <li class="col__item">
+                                <a href="">x.com/g13</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer__bottom">
+                    &copy; 2024 - Health Consult G13
+                </div>
+            </div>
+        </div>
+    </footer>
+    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+
+            const authenEle = jQuery(".authen");
+            if (authenEle) {
+                jQuery.ajax({
+                    url: '/thong-tin-nguoi-dung', // Đường dẫn đến API endpoint để lấy thông tin session
+                    type: 'GET', // Phương thức HTTP của yêu cầu (GET, POST, PUT, DELETE, vv.)
+                    dataType: 'json', // Kiểu dữ liệu mong đợi của phản hồi từ máy chủ
+                    success: function (response) { // Callback được gọi khi yêu cầu thành công
+                        const { error, uname } = response;
+                        if (uname) {
+                            authenEle.html(`
+                            <div class="authen__user">
+                                <p class="authen__username">${uname}</p>
+                                <div class="authen__logout">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </div>
+                            </div>
+                            `);
+                            const logoutBtn = jQuery(".authen__logout");
+                            logoutBtn.on("click", function () {
+                                jQuery.ajax({
+                                    url: "/logout",
+                                    method: "GET",
+                                    success: function (response) {
+                                        if (response?.error !== 0) console.log("Đã có lỗi xảy ra, không thể đăng xuất lúc này!");
+
+                                        location.href = "/dang-nhap";
+                                    },
+
+                                    error: function (xhr, status, error) { // Callback được gọi khi xảy ra lỗi
+                                        // Xử lý lỗi, ví dụ: hiển thị thông báo cho người dùng
+                                        console.error(error);
+                                    }
+
+                                })
+                            })
+                        }
+                    },
+                    error: function (xhr, status, error) { // Callback được gọi khi xảy ra lỗi
+                        // Xử lý lỗi, ví dụ: hiển thị thông báo cho người dùng
+                        console.error(error);
+                    }
+                })
+            }
+        })
+    </script>
+    @* <script type="text/javascript">
+    jQuery(document).ready(function () {
+    const logoutBtn = document.querySelector(".authen__logout");
+    console.log(logoutBtn)
+    if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+    console.log("logout")
+    jQuery.ajax({
+    url: "/logout",
+    method: "GET",
+    success: function (response) {
+    if (response?.error !== 0) console.log("Đã có lỗi xảy ra, không thể đăng xuất lúc này!");
+
+    location.href = "/dang-nhap";
+    },
+
+    error: function (xhr, status, error) { // Callback được gọi khi xảy ra lỗi
+    // Xử lý lỗi, ví dụ: hiển thị thông báo cho người dùng
+    console.error(error);
+    }
+
+    })
+    })
+    }
+    })
+    </script> *@
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>

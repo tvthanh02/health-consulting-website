@@ -1,0 +1,58 @@
+@{
+    ViewData["Title"] = "Doctor Page";
+    BreadcrumbModel brb = ViewData["breadcrumb"] as BreadcrumbModel;
+}
+
+@model List<BacSi>
+
+<div class="doctor">
+    <partial name="_Breadcrumb" model="brb" />
+    @* <div>
+    <input type="text" placeholder="Nhập tìm kiếm" class="input-search">
+    <input type="button" value="OK" class="btn-search">
+    </div> *@
+    <div class="doctor__main">
+        <h2 class="doctor__main-title">Bác sĩ của chúng tôi</h2>
+        <ul class="doctor__main-list">
+            @foreach (BacSi bacSi in Model)
+            {
+                <li class="doctor__main-item">
+                    <a class="doctor__main-item-wrapper" asp-controller="Doctor" asp-action="Detail"
+                        asp-route-id="@bacSi.SMaBacSi">
+                        <div class="doctor__main-item-avatar">
+                            <img src="images/@bacSi.SAvatar" alt="AVATAR_DOCTOR">
+                        </div>
+                        <div class="doctor__main-item-info">
+                            <p class="doctor__main-item-info-name">@bacSi.STenBacSi</p>
+                            <p class="doctor__main-item-info-specialist">@bacSi.SMaChuyenKhoaNavigation.STenChuyenKhoa</p>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        const btnSearch = jQuery(".btn-search")
+        btnSearch.on("click", function () {
+            const inputValue = jQuery(".input-search").val()
+            jQuery.ajax({
+                url: "/tim-kiem",
+                type: "GET",
+                dataType: "json",
+                data: {
+                    q: inputValue
+                },
+                success: function (response) {
+                    const { url } = response;
+                    location.href = url;
+                },
+                error: function () {
+
+                }
+            })
+        })
+    </script>
+}

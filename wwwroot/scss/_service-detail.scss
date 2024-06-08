@@ -1,0 +1,219 @@
+.service-detail__content {
+  margin: 30px 0;
+
+  & .service-detail__content-introduce {
+    width: 100%;
+    max-height: 300px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    &.toggle {
+      max-height: fit-content;
+      height: auto;
+      overflow: 0;
+    }
+
+    & .service-detail-introduce__title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: $primary;
+      text-align: center;
+      @include desktop {
+        text-align: left;
+      }
+    }
+
+    & .service-detail-introduce__part {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      row-gap: 15px;
+
+      & .service-detail-introduce__part-title {
+        font-size: 1.6rem;
+        font-weight: 600;
+      }
+      & .service-detail-introduce__part-infos {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+        padding: 0 20px;
+
+        & .service-detail-introduce__part-infos-item {
+          font-size: 1.4rem;
+          line-height: 1.2;
+          list-style-type: circle;
+        }
+      }
+    }
+  }
+  & .service-detail__content-introduce-action {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: $second;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    margin: 20px 0;
+
+    &:hover {
+      filter: brightness(160%);
+    }
+  }
+
+  & .service-detail__content-main {
+    width: 100%;
+    height: auto;
+
+    & .service-detail__list-option {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      list-style: none;
+
+      & .service-detail__option {
+        width: 100%;
+        min-height: 304px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        @include tablet {
+          grid-template-columns: 1fr;
+          border-radius: 0;
+          box-shadow: none;
+        }
+
+        @include mobile {
+          grid-template-columns: 1fr;
+          border-radius: 0;
+          box-shadow: none;
+        }
+        column-gap: 10px;
+        border-radius: 10px;
+        //box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.17);
+        box-shadow: 0px 0px 6px rgba(28, 95, 163, 0.3);
+
+        & .service-detail__option-doctor-info,
+        & .service-detail__option-schedule {
+          width: 100%;
+          height: 100%;
+          padding: 10px;
+        }
+
+        & .service-detail__option-doctor-info {
+          display: flex;
+          justify-content: center;
+
+          @include tablet {
+            justify-content: start;
+          }
+
+          @include mobile {
+            justify-content: start;
+          }
+          align-items: center;
+          gap: 20px;
+
+          & .doctor-info__avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: $primaryLight;
+            overflow: hidden;
+
+            & img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          & .doctor-info__content {
+            font-size: 1.6rem;
+            font-weight: 600;
+          }
+        }
+
+        & .service-detail__option-schedule {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+
+          @include mobile {
+            row-gap: 20px;
+          }
+          @include tablet {
+            row-gap: 20px;
+          }
+
+          & .book-schedule {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            & .book-schedule__date {
+              font-size: 1.4rem;
+              font-weight: 600;
+              color: $primary;
+              width: 150px;
+              height: 30px;
+              display: flex;
+              justify-content: start;
+              align-items: center;
+              border-bottom: 1px solid $primary;
+            }
+
+            & .book-schedule__title {
+              font-size: 1.5rem;
+            }
+
+            & .book-schedule__options {
+              width: 100%;
+
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              flex-wrap: wrap;
+
+              & .book-schedule__option {
+                text-decoration: none;
+                font-size: 1.4rem;
+                width: 115px;
+                height: 41px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #333;
+                font-weight: 600;
+                background-color: #eeeeee;
+              }
+
+              & .alert-invalid-schedule {
+                font-size: 1.3rem;
+                color: $second;
+                font-weight: bold;
+              }
+            }
+          }
+          & .book-schedule-price {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.4rem;
+            color: $second;
+          }
+        }
+      }
+    }
+  }
+}

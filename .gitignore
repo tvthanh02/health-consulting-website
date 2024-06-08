@@ -1,0 +1,79 @@
+# Visual Studio code files
+.vscode/
+*.vscode/
+
+# Rider files
+.idea/
+*.sln.iml
+*.ide
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio 2019 cache files
+.vs/
+bin/
+obj/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Tóan tử điều khiển
+**/bin/
+**/obj/
+**/Debug/
+**/Release/
+**/PublishProfiles/
+**/node_modules/
+**/bower_components/
+**/jspm_packages/
+**/packages/
+**/scripts/
+
+# Roslyn cache directories
+*.ide/
+
+# Unity generated folders
+Library/
+Temp/
+Build/
+
+# Rider
+.idea/
+*.sln.iml
+*.ide
+
+# Resharper
+_ReSharper*/
+*.sln.DotSettings.user
+*.sln.DotSettings
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# wwwroot
+wwwroot/font
+wwwroot/lib

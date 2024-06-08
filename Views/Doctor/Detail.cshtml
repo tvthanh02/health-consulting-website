@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Doctor Detail Page";
+    BreadcrumbModel brc = ViewData["breadcrumb"] as BreadcrumbModel;
+    string sTenBacSi = ViewBag.BreadcrumbParams;
+    if (sTenBacSi != null)
+    {
+        brc.Path = $"{brc.Path}/{sTenBacSi}";
+    }
+}
+
+@model BacSi;
+
+<div>
+    <partial name="_Breadcrumb" model="brc" />
+    <div class="doctor-detail__container">
+        <section class="doctor-detail__info-box">
+            <div class="doctor-detail__avatar">
+                <img src="/images/@Model.SAvatar" alt="AVATAR">
+            </div>
+            <div class="doctor-detail__info">
+                <p class="doctor-detail__info-name">Bs. @Model.STenBacSi</p>
+                <p class="doctor-detail__info-work-place">
+                    <span style="color: rgb(206, 43, 44); font-weight: bold;">Đơn vị:</span>
+                    @Model.SMaDonViCongTacNavigation.STenDonVi
+                </p>
+                <p class="doctor-detail__info-work-place">
+                    <span style="color: rgb(206, 43, 44); font-weight: bold;">Chuyên khoa:</span>
+                    @Model.SMaChuyenKhoaNavigation.STenChuyenKhoa
+                </p>
+            </div>
+        </section>
+        <section class="doctor-detail__more">
+            <p class="doctor-detail__more-heading">Tư vấn, khám và điều trị: </p>
+            <ul class="doctor-detail__more-list">
+                @{
+                    string[] data = Model.SmMoTa != null ? Model.SmMoTa.Split("-") : null;
+                    if (data != null && data.Length > 0)
+                    {
+                        foreach (string item in data)
+                        {
+                            <li class="doctor-detail__more-item">@item
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <p style="font-size: 1.3rem;">Chưa cập nhật thông liên liên quan tới bác sĩ.</p>
+                    }
+                }
+            </ul>
+        </section>
+    </div>
+</div>

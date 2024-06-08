@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Schedule Page";
+}
+
+@model List<TuVanBangThoiGian>
+
+<div class="schedule">
+    @* <partial name="_Breadcrumb" model="brb"/> *@
+    <div class="schedule__main">
+        <h2 class="schedule__main-title">Lịch hẹn của bạn</h2>
+        @* <div class="schedule__main-features">
+        <div class="schedule-feature__filter">
+        <p>Hiển thị: </p>
+        @{ Html.BeginForm("Index", "Schedule", FormMethod.Get); }
+        @Html.DropDownListFor(m => m.ValueSelected ,Model.options,new { @id = "schedule-select" })
+        @{ Html.EndForm(); }
+        </div>
+        </div> *@
+        <ul class="schedule__main-list">
+            @if (Model.Count > 0)
+            {
+                @foreach (TuVanBangThoiGian btg in Model)
+                {
+                    <li
+                        class="schedule__main-item @(btg.SMaTrangThaiNavigation.SMaTrangThai == "tt1" ? "done" : btg.SMaTrangThaiNavigation.SMaTrangThai == "tt3" ? "doing" : "pending")">
+                        <a class="schedule__main-item-wrapper" asp-controller="schedule" asp-action="Detail"
+                            asp-route-scheduleid=@btg.SMaLich asp-route-timeid=@btg.SMaThoiGianTuVan>
+                            <div class="schedule__main-item-top">
+                                <div class="schedule__main-top-status"></div>
+                                <p class="schedule__main-top-description">@btg.SMaTrangThaiNavigation.STenTrangThai</p>
+                            </div>
+                            <div class="schedule__main-item-content">
+                                <p class="schedule__main-content-name-service">
+                                    @btg.SMaLichNavigation.SMaBacSiNavigation.SMaChuyenKhoaNavigation.STenChuyenKhoa</p>
+                                <p class="schedule__main-content-doctor">BS. @btg.SMaLichNavigation.SMaBacSiNavigation.STenBacSi
+                                </p>
+                                <p class="schedule__main-content-dateandtime">
+                                    <span class="schedule__main-content-date">@btg.SMaLichNavigation.DNgayTuVan</span>
+                                    <span class="schedule__main-content-time">@btg.SMaThoiGianTuVanNavigation.TThoiGianBatDau -
+                                        @btg.SMaThoiGianTuVanNavigation.TThoiGianKetThuc</span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                }
+            }
+            else
+            {
+                <p style="color: rgb(206, 43, 44); font-size: 1.6rem; font-weight: bold;">Bạn chưa có lịch hẹn nào!</p>
+            }
+
+        </ul>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+
+            //$("#schedule-select").trigger("change");
+
+            jQuery("#schedule-select").on("change", function () {
+                var selectedValue = $(this).val();
+
+                location.href = "/lich-hen?loc=" + selectedValue
+
+        @* $.ajax({
+                url: "/lich-hen",
+                type: "GET",
+                data: {
+                "loc": selectedValue,
+                }
+                dataType: "json",
+                success: function (result) {
+                // Cập nhật dữ liệu đã render
+                console.log(result)
+
+                },
+                error: function () {
+                console.log("Error occurred while fetching data.");
+                }
+                }); *@
+                                        });
+        });
+    </script>
+}

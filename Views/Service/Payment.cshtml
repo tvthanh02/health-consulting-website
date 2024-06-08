@@ -1,0 +1,144 @@
+@{
+    ViewData["Title"] = "Payment Page";
+}
+
+@model TuVanBangThoiGian
+
+<div class="payment">
+
+    <div class="payment__schedule-info">
+        <div class="payment__schedule-info-wrapper">
+            <div class="payment__schedule-info-main">
+                <div class="avatar-doctor">
+                    <img src="/images/@Model.SMaLichNavigation.SMaBacSiNavigation.SAvatar" alt="AVATAR">
+                </div>
+                <div class="main-info">
+                    <p class="main-info__title">ĐẶT LỊCH KHÁM</p>
+                    <p class="main-info__name-doctor">BS. @Model.SMaLichNavigation.SMaBacSiNavigation.STenBacSi</p>
+                    @{
+                        DateOnly? dat = Model.SMaLichNavigation.DNgayTuVan;
+                        string showDate = $"{dat.Value.Day}/{dat.Value.Month}/{dat.Value.Year}";
+                        TimeOnly? startTime, endTime;
+                        startTime = Model.SMaThoiGianTuVanNavigation.TThoiGianBatDau;
+                        endTime = Model.SMaThoiGianTuVanNavigation.TThoiGianKetThuc;
+
+                    }
+                    <span class="main-info__time">@string.Format("{0:HH:mm}", startTime) - @string.Format("{0:HH:mm}",
+                        endTime) - @showDate</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="payment__user-info">
+        <div class="payment__user-info-wrapper">
+
+        </div>
+    </div>
+    <div class="payment__pay-info">
+        <div class="payment__pay-info-wrapper">
+            <p class="pay-info__title">Hình thức thanh toán</p>
+            <div class="pay-info__pay-type">
+                <input type="radio" id="pay-type" checked>
+                <label for="pay-type">Thanh toán trực tuyến</label>
+            </div>
+            <div class="pay-info__price">
+                <div class="pay-info__price-detail">
+                    <div class="pay-info__price">
+                        <div class="pay-info__price-top">
+                            <div class="pay-info__price-top-item">
+                                <p class="info-price__label">Giá tư vấn</p>
+                                <p class="info-price__value">@{
+                                        double? price = Model.SMaLichNavigation.SMaBacSiNavigation.FPriceConsult;
+
+                                        // Sử dụng phương thức ToString với định dạng tiền tệ việt nam
+                                        string formattedPrice = price?.ToString("#,##0 đ");
+                                    }
+                                    @formattedPrice
+                                </p>
+                            </div>
+                            <div class="pay-info__price-top-item">
+                                <p class="info-price__label">Phí đặt lịch</p>
+                                <p class="info-price__value">Miễn phí</p>
+                            </div>
+                        </div>
+                        <div class="pay-info__price-bot">
+                            <div class="pay-info__total">
+                                <p class="info-price__label">Tổng cộng</p>
+                                <p class="info-price__value">@{
+                                        double? price2 = Model.SMaLichNavigation.SMaBacSiNavigation.FPriceConsult;
+
+                                        // Sử dụng phương thức ToString với định dạng tiền tệ việt nam
+                                        string formattedPrice2 = price2?.ToString("#,##0 đ");
+                                    }
+                                    @formattedPrice2
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btnPay" data-timeid="@Model.SMaThoiGianTuVan" data-scheduleid="@Model.SMaLich">Xác nhận đặt
+                lịch</div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+
+            const info = jQuery(".payment__user-info-wrapper");
+            if (info) {
+                jQuery.ajax({
+                    url: '/thong-tin-nguoi-dung', // Đường dẫn đến API endpoint để lấy thông tin session
+                    type: 'GET', // Phương thức HTTP của yêu cầu (GET, POST, PUT, DELETE, vv.)
+                    dataType: 'json', // Kiểu dữ liệu mong đợi của phản hồi từ máy chủ
+                    success: function (response) { // Callback được gọi khi yêu cầu thành công
+                        const { error, uid, uname, uphone } = response;
+                        if (uname && uphone) {
+
+                            info.html(`            <p class="user-info__title">Thông tin cá nhân</p>
+                                                            <div class="user-info__input">
+                                                                <input type="text" readonly disabled placeholder="${uname}">
+                                                            </div>
+                                                            <div class="user-info__input">
+                                                                <input type="text" readonly disabled placeholder="${uphone}">
+                                                            </div>`);
+                        }
+                        if (uid) {
+                            const btn = jQuery(".btnPay");
+                            btn.on("click", function () {
+                                const timeId = jQuery(this).data("timeid")
+                                const scheduleId = jQuery(this).data("scheduleid")
+                                jQuery.ajax({
+                                    url: "/add-schedule",
+                                    type: "POST",
+                                    dataType: "json",
+                                    data: {
+                                        timeid: timeId,
+                                        scheduleid: scheduleId,
+                                        userid: uid
+                                    },
+                                    success: function (response) {
+                                        const { error } = response
+                                        if (error === 0) {
+                                            location.href = "/lich-hen"
+                                        }
+                                    },
+
+                                    error: function () {
+
+                                    }
+                                })
+                            })
+                        }
+                    },
+                    error: function (xhr, status, error) { // Callback được gọi khi xảy ra lỗi
+                        // Xử lý lỗi, ví dụ: hiển thị thông báo cho người dùng
+                        console.error(error);
+                    }
+                })
+            }
+        })
+    </script>
+}

@@ -1,0 +1,72 @@
+.doctor-detail__container {
+  width: 100%;
+  display: flex;
+  gap: 100px;
+  padding: 50px 0;
+
+  & .doctor-detail__info-box {
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    gap: 30px;
+
+    & .doctor-detail__avatar {
+      width: 160px;
+      height: 160px;
+      flex-shrink: 0;
+      overflow: hidden;
+      background-color: $primary;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    & .doctor-detail__info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      & .doctor-detail__info-name {
+        font-size: 2rem;
+        font-weight: bold;
+        color: $primary;
+      }
+
+      & .doctor-detail__info-work-place {
+        font-size: 1.3rem;
+        display: flex;
+        gap: 10px;
+        // font-weight: 600;
+        color: black;
+      }
+    }
+  }
+
+  & .doctor-detail__more {
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    gap: 20px;
+
+    & .doctor-detail__more-heading {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: $primary;
+    }
+    & .doctor-detail__more-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      list-style: circle;
+
+      & .doctor-detail__more-item {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}

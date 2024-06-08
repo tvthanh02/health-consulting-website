@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    List<SliderItem> slides = new List<SliderItem>() {
+new SliderItem() {
+Data = "<div class='banner'><img src='images/banner-2.png' alt='' draggable='false' /></div>",
+ControllerName = "",
+ActionName = "",
+RouteParameter = ""
+},
+new SliderItem() {
+Data = "<div class='banner'><img src='images/banner-1.png' alt='' draggable='false' /></div>",
+ControllerName = "",
+ActionName = "",
+RouteParameter = ""
+}
+};
+
+}
+
+@model HomeModel
+
+@{
+
+    List<SliderItem> specialtys = Model.chuyenKhoas.Select(specialty => new SliderItem()
+            {
+                Data = $@"
+<div class='specialty-card'>
+<div class='specialty-card__thumbnail'>
+<img
+src='images/{specialty.Sthumbnail}'
+alt='' draggable='false' />
+</div>
+<p class='specialty-card__name'>{specialty.STenChuyenKhoa}</p>
+</div>",
+                RouteParameter = specialty.SMaChuyenKhoa,
+                ControllerName = "Specialty",
+                ActionName = "Detail"
+
+            }).ToList<SliderItem>();
+
+
+    List<SliderItem> doctors = Model.bacSis.Select(doctor => new SliderItem()
+            {
+                Data = $@"
+<div class='doctor-card' data-dt='{doctor.SMaBacSi}'>
+<div class='doctor-card__avatar'>
+<img src='images/{doctor.SAvatar}' alt='' draggable='false' />
+</div>
+<p class='doctor-card__name'>BS. {doctor.STenBacSi}</p>
+<p class='doctor-card__specialty'>{doctor.SMaChuyenKhoaNavigation.STenChuyenKhoa}</p>
+</div>",
+                RouteParameter = doctor.SMaBacSi,
+                ControllerName = "Doctor",
+                ActionName = "Detail"
+            }).ToList();
+}
+
+
+
+
+<div class="home">
+    <div class="home__hero">
+        <div class="home__hero-banner">
+            <partial name="_Slider" model="slides" />
+        </div>
+        <div class="home__hero-clickbat">
+            <img src="images/clickbat.jpg" alt="EVENTS">
+        </div>
+    </div>
+    <div class="home__specialty">
+        <div class="home__specialty-head">
+            <p class="home__specialty-title">Chuyên khoa</p>
+            <a class="btnMoreContent" asp-controller="Specialty" asp-action="Index">Xem thêm</a>
+        </div>
+        <div class="home__specialty-content">
+            <partial name="_Slider" model="specialtys" />
+        </div>
+    </div>
+    <div class="home__doctor-staring">
+        <div class="home__doctor-head">
+            <p class="home__doctor-title">Bác sĩ nổi bật</p>
+            <a class="btnMoreContent" asp-controller="Doctor" asp-action="Index">Xem thêm</a>
+        </div>
+        <div class="home__doctor-content">
+            <partial name="_Slider" model="doctors" />
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/slider.js"></script>
+    <script type="text/javascript">
+        handleSetupSlide(".home__hero-banner .slider", 1, 1, 1, 5000);
+        handleSetupSlide(".home__specialty-content .slider", 4, 2, 2, 6000);
+        handleSetupSlide(".home__doctor-content .slider", 4, 2, 2, 7000);
+
+    </script>
+}

@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Service Page";
+    BreadcrumbModel brb = ViewData["breadcrumb"] as BreadcrumbModel;
+}
+
+@model List<ChuyenKhoa>
+
+<div class="service">
+    <partial name="_Breadcrumb" model="brb" />
+    <div class="service__content">
+        <ul class="service__services">
+            @foreach (ChuyenKhoa ck in Model)
+            {
+                <li class="service__card-item">
+                    <a asp-controller="service" asp-action="Detail" asp-route-id="@ck.SMaChuyenKhoa">
+                        <div class="service__card-wrapper">
+                            <div class="service__card-img">
+                                <img src="images/@ck.Sthumbnail" alt="">
+                            </div>
+                            <p class="service__name">Tư vấn về @ck.STenChuyenKhoa.Replace("Chuyên khoa", "")</p>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

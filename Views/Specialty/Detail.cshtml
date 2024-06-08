@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Specialty Detail Page";
+    BreadcrumbModel brc = ViewData["breadcrumb"] as BreadcrumbModel;
+    string sTenChuyenKhoa = ViewBag.BreadcrumbParams;
+    if (sTenChuyenKhoa != null)
+    {
+        brc.Path = $"{brc.Path}/{sTenChuyenKhoa}";
+    }
+}
+
+@model ChuyenKhoa;
+
+<div>
+    <partial name="_Breadcrumb" model="brc" />
+    <div class="specialty-detail__container">
+        <p class="specialty-detail__heading">@Model.STenChuyenKhoa</p>
+        <div class="specialty-detail__part">
+            <p class="specialty-detail-part__title">Các vấn đề, bệnh thường gặp phải về
+                @Model.STenChuyenKhoa.Replace("Chuyên khoa", "") :</p>
+            <ul class="specialty-detail-part__list">
+                @{
+                    string[] data = Model.SMota != null ? Model.SMota.Split("-") : null;
+                    if (data != null && data.Length > 0)
+                    {
+                        foreach (string item in data)
+                        {
+                            <li class="specialty-detail-part__item">@item</li>
+                        }
+                    }
+                    else
+                    {
+                        <p style="font-size: 1.3rem;">Chưa cập nhật thông liên liên quan tới chuyên khoa.</p>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>

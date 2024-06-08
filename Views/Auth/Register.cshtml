@@ -1,0 +1,70 @@
+@{
+    ViewData["Title"] = "Register";
+}
+
+@model Register
+
+<div class="row align-items-center justify-content-center">
+    <div class="">
+        <div class="form-block mx-auto">
+            <div class="text-center mb-5">
+                <h3 class="text-uppercase">Đăng Ký</h3>
+            </div>
+            <form class="auth-form" asp-controller="Auth" asp-action="Register" method="post">
+                <div class="wrapper">
+                    <div class="leftside">
+                        <div class="form-group">
+                            <label for="fullname">Họ Tên</label>
+                            <input asp-for="@Model.nguoiDung.SHoTen" type="text" class="form-control"
+                                placeholder="Nhập tên" id="fullname">
+                            <span asp-validation-for="@Model.nguoiDung.SHoTen"
+                                class="alert-err-validate text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Tài Khoản</label>
+                            <input asp-for="@Model.taiKhoan.STenDangNhap" type="text" class="form-control"
+                                placeholder="Nhập tài khoản" id="username">
+                            <span asp-validation-for="@Model.taiKhoan.STenDangNhap"
+                                class="alert-err-validate text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mật khẩu</label>
+                            <input asp-for="@Model.taiKhoan.SMatKhau" type="password" class="form-control"
+                                placeholder="Nhập mật khẩu" id="password">
+                            <span asp-validation-for="@Model.taiKhoan.SMatKhau"
+                                class="alert-err-validate text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="rightside">
+                        <div class="form-group">
+                            <label for="wasborn">Ngày Sinh</label>
+                            <input asp-for="@Model.nguoiDung.DNgaySinh" type="date" class="form-control"
+                                placeholder="Nhập ngày sinh" id="wasborn">
+                            <span asp-validation-for="@Model.nguoiDung.DNgaySinh"
+                                class="alert-err-validate text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Giới Tính</label>
+                            <select asp-for="@Model.nguoiDung.BGioiTinh" class="form-control" id="gender">
+                                <option value="">Lựa chọn</option>
+                                <option value="1">Nam</option>
+                                <option value="0">Nữ</option>
+                            </select>
+                            <span asp-validation-for="@Model.nguoiDung.BGioiTinh"
+                                class="alert-err-validate text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Số Điện Thoại</label>
+                            <input asp-for="@Model.nguoiDung.SSdt" type="text" class="form-control"
+                                placeholder="Nhập SĐT" id="phone">
+                            <span asp-validation-for="@Model.nguoiDung.SSdt"
+                                class="alert-err-validate text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Đăng Ký" class="btn btn-block btn-submit py-2 btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
